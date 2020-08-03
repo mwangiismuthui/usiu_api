@@ -6,14 +6,15 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Traits\UsesUUID;
+// use App\Traits\UsesUUID;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable;
-
+     use HasApiTokens, Notifiable;
+  
     use SoftDeletes;
-    use UsesUUID;
+    // use UsesUUID;
     /**
      * The attributes that are mass assignable.
      *

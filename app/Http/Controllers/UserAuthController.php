@@ -29,17 +29,6 @@ class UserAuthController extends Controller
     public function registerUser(UserRegisterRequest $request)
     {
 
-
-        $input  = [
-            'firstname' =>  $request->firstname,
-            'lastname' =>   $request->lastname,
-            'email' =>      $request->email,
-            'profile_pic_path' =>      $request->profile_pic_path,
-            'username' =>      $request->username,
-            'phone' =>      $request->phone,
-            'password' =>   Hash::make($request->password),
-        ];
-
         // check if email already registered
         $user  = User::where('email', $request->email)->first();
         if (!is_null($user)) {
@@ -49,8 +38,28 @@ class UserAuthController extends Controller
             ], Response::HTTP_OK);
         } else {
             // create and return data
-            $user = User::create($input);
-       
+            $user = new User();
+            $user->full_name =  $request->full_name;
+            $user->student_id =   $request->student_id;
+            $user->email =  $request->email;
+            $user->profile_picture = $request->profile_picture;
+            // 'username' =      $request->username,
+            $user->phone_number =     $request->phone_number;
+            $user->password = Hash::make($request->password);
+            if ($user->save()) {
+                return response([
+                    'error' => false,
+                    'message' => 'Success! you are logged in successfully',
+                    'user' => new UserResource($user)
+                ], Response::HTTP_OK);
+            }else{
+                return response([
+                    'error' => true,
+                    'message' => 'Something went wrong!',
+                ], Response::HTTP_OK);
+            }
+            
+            
         }
     }
 

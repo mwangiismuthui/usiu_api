@@ -13,7 +13,7 @@ class UserRegisterRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,16 +24,14 @@ class UserRegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'firstname' =>  'required|min:3',
-            'lastname' =>  'required|min:3',
-            'user_type' => 'required',
-            'email' =>      'required|email',
-            'profile_pic_path' =>   'required',
-            'username' =>     'required|min:3',
-            'phone' =>      'required',
-            'DOB' =>      'required',
-            'gender' =>      'required',
-            'about' =>      'required_if:user_type,==,coach',
+            'full_name' =>  'required|min:3',
+            'student_id' =>  'required|min:3|unique:users',
+            'email' =>      'required|email|unique:users',
+            // 'username' =>     'required|min:3',
+            // 'phone' =>      'required',
+            // 'DOB' =>      'required',
+            // 'gender' =>      'required',
+            // 'about' =>      'required_if:user_type,==,coach',
             'password' =>   'required',
           ];
     }
