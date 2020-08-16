@@ -22,7 +22,7 @@ class UserAuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api')->except('registerUser', 'userLogin', 'forgot_password', 'token_connfrm', 'changePassword');
+        // $this->middleware('auth:api')->except('registerUser', 'userLogin', 'forgot_password', 'token_connfrm', 'changePassword');
     }
 
     //----------------- [ Register user ] -------------------
